@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://angaramoksh-a11y.github.io/rob-spectre/sitemap.xml

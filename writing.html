@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="canonical" href="https://brooklynhacker.com/">
+<title>Writing — Rob Spectre's Brooklyn Hacker blog</title>
+<meta name="description" content="Selected posts from Rob Spectre's personal blog, Brooklyn Hacker — on shipping software and AI, punk shows, long drives, and the people the internet forgets.">
+<meta property="og:title" content="Writing — Rob Spectre's Brooklyn Hacker blog">
+<meta property="og:description" content="Selected posts from Rob Spectre's personal blog, Brooklyn Hacker — on shipping software and AI, punk shows, long drives, and the people the internet forgets.">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Rob Spectre">
+<meta name="author" content="Rob Spectre">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTMiIGZpbGw9IiMxMTExMTAiLz48dGV4dCB4PSIzMiIgeT0iNDYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLFRpbWVzIE5ldyBSb21hbixzZXJpZiIgZm9udC1zaXplPSI0NCIgZm9udC13ZWlnaHQ9IjYwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2Y0ZjFlYSI+UjwvdGV4dD48L3N2Zz4=">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Blog","name":"Brooklyn Hacker — Rob Spectre","url":"https://brooklynhacker.com/","author":{"@type":"Person","name":"Rob Spectre","sameAs":["https://github.com/RobSpectre","https://brooklynhacker.com/"]},"description":"Selected writing from Rob Spectre's personal blog, Brooklyn Hacker."}
+</script>
+<script>
+(function(){try{var q=new URLSearchParams(location.search);if(q.get('static')==='1'){document.documentElement.classList.add('static');}var sh=parseInt(q.get('shift')||'0',10);if(sh>0){var st=document.createElement('style');st.textContent='body{transform:translateY(-'+sh+'px)} .nav,.sb-badge,.ribbon{position:absolute!important}';document.head.appendChild(st);}}catch(e){}})();
+</script>
+<style>
+.arch-head{display:grid;grid-template-columns:1fr auto;gap:clamp(30px,6vw,90px);align-items:center;padding-top:max(calc(var(--sec-pad) + 30px),calc(var(--wm-big) + 96px))}
+.arch-head .lead{max-width:52ch;color:var(--muted);font-size:var(--h6);margin-top:26px;line-height:1.6}
+.arch-head h1{max-width:16ch;margin-top:22px}
+.arch-head .count{margin-top:34px;display:inline-flex;align-items:center;gap:14px;font-family:var(--sans);font-size:var(--eyebrow);letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.arch-head .count::before{content:"";width:34px;height:1px;background:var(--accent)}
+.arch-art{flex:0 0 auto;display:flex;align-items:center;justify-content:center}
+.arch-art svg{width:clamp(150px,17vw,240px);height:auto;overflow:visible}
+.wr-archive{padding-top:0}
+.yr-group{display:grid;grid-template-columns:150px 1fr;gap:clamp(22px,5vw,72px);border-top:1px solid var(--faint);padding-top:30px;margin-top:12px}
+.yr-group .yr{font-family:var(--serif);font-weight:340;font-size:var(--h3);line-height:1.15;color:var(--muted);position:sticky;top:104px;align-self:start;max-width:8em}
+.rows{display:flex;flex-direction:column}
+.entry{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:clamp(16px,3.2vw,44px);align-items:baseline;padding:28px 0;border-bottom:1px solid var(--faint);text-decoration:none;color:var(--ink);transition:background .3s ease,padding-left .35s ease}
+.entry:hover,.entry:focus-visible{background:var(--paper-2);padding-left:14px}
+.entry .e-date{font-size:var(--small);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap;line-height:1.5}
+.entry .e-body{min-width:0}
+.entry .e-title{font-family:var(--serif);font-weight:340;font-size:var(--h3);line-height:1.28;color:var(--ink)}
+.entry .e-meta{margin-top:9px;font-size:var(--small);letter-spacing:.06em;color:var(--muted)}
+.entry .e-right{display:flex;align-items:center;gap:18px;white-space:nowrap;justify-self:end}
+.entry .e-tag{font-family:var(--sans);font-size:var(--eyebrow);font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.entry .e-go{font-family:var(--sans);font-size:1rem;color:var(--muted);transform:translate(-4px,2px);transition:transform .3s ease,color .3s ease}
+.entry:hover .e-go,.entry:focus-visible .e-go{transform:translate(2px,-2px);color:var(--ink)}
+.wr-foot{padding:clamp(46px,7vh,90px) var(--gutter) 0;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+@media(max-width:900px){.arch-head{grid-template-columns:1fr;gap:8px}.arch-art{order:-1;justify-content:flex-start}.arch-art svg{width:clamp(120px,30vw,180px)}.yr-group{grid-template-columns:1fr;gap:0}.yr-group .yr{position:static;font-size:var(--h4);margin-bottom:6px}.entry{grid-template-columns:1fr;gap:6px;padding:24px 0;align-items:start}.entry .e-date{order:-1}.entry .e-right{justify-self:start;margin-top:10px;gap:14px}.entry .e-go{transform:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4.5"/></filter>
+    <filter id="rough2" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.0135 0.0205" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4.9"/></filter>
+    <filter id="rough3" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.0125 0.0215" numOctaves="2" seed="24" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4.2"/></filter>
+    <filter id="rough4" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4.7"/></filter>
+  </defs>
+</svg>
+
+<header class="nav">
+  <a class="wordmark" href="index.html" aria-label="Rob Spectre — home"><span class="cap">R</span><span class="sc">OB&nbsp;</span><span class="cap">S</span><span class="sc">PECTRE</span><svg class="wm-line" viewBox="0 0 200 10" aria-hidden="true" focusable="false"><path pathLength="1" d="M4,6.4 C36,3.2 78,7.6 118,5 C148,3.2 176,6 196,4.4"/></svg></a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="overlay" aria-label="Open menu"><i></i><i></i><i></i></button>
+</header>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Menu">
+  <button class="ol-close" id="menuClose">Close</button>
+  <nav>
+    <a class="ol-link" href="index.html">Home</a>
+    <a class="ol-link" href="about.html">About Rob</a>
+    <a class="ol-link" href="projects.html">What I'm building</a>
+    <a class="ol-link" href="writing.html" aria-current="page">Writing</a>
+    <a class="ol-link" href="talks.html">Talks &amp; media</a>
+    <a class="ol-link" href="index.html#contact">Say hello</a>
+  </nav>
+  <div class="ol-meta">
+    <a href="https://github.com/RobSpectre" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <a href="https://www.linkedin.com/in/rob-spectre/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+    <a href="https://brooklynhacker.com/" target="_blank" rel="noopener">Brooklyn Hacker &#8599;</a>
+    <span>Brooklyn, New York</span>
+  </div>
+</div>
+
+<main>
+<section class="sec arch" id="top">
+  <div class="arch-head">
+    <div>
+      <p class="eyebrow rv">
+        <svg class="glyph doodle" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path style="--i:0" pathLength="1" d="M32,10 C22,4 10,4 4,8 C4,18 4,29 4,37 C11,33 23,33 32,39"/><path style="--i:1" pathLength="1" d="M32,10 C42,4 54,4 60,8 C60,18 60,29 60,37 C53,33 41,33 32,39"/><path style="--i:2" pathLength="1" d="M32,11 L32,38"/>
+        </svg>
+        Writing &middot; Brooklyn Hacker
+      </p>
+      <h1 class="rv" style="--d:1">A hacker who <span class="it">writes.</span></h1>
+      <p class="lead rv" style="--d:2">Fifteen years of notes from Brooklyn Hacker &mdash; on shipping software and AI, on punk shows and long drives, on the people the internet forgets. A selection below; each one opens the original post.</p>
+      <p class="count rv" style="--d:3">Selected posts &middot; the full archive lives on brooklynhacker.com</p>
+    </div>
+    <div class="arch-art rv" style="--d:2" aria-hidden="true">
+      <svg class="doodle" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+        <path style="--i:0" pathLength="1" d="M100,44 C74,30 42,28 16,38 C16,66 16,98 18,124 C44,114 76,114 100,126"/><path style="--i:0" pathLength="1" d="M100,44 C126,30 158,28 184,38 C184,66 184,98 182,124 C156,114 124,114 100,126"/><path style="--i:1" pathLength="1" d="M100,45 L100,126"/>
+        <path style="--i:2" pathLength="1" d="M32,58 C50,54 72,54 88,56"/><path style="--i:2" pathLength="1" d="M30,74 C48,70 72,70 88,72"/><path style="--i:2" pathLength="1" d="M32,90 C50,86 70,86 84,88"/>
+        <path style="--i:3" pathLength="1" d="M112,56 C128,54 150,54 168,58"/><path style="--i:3" pathLength="1" d="M112,72 C128,70 152,70 170,74"/><path style="--i:3" pathLength="1" d="M116,88 C130,86 150,86 168,90"/>
+        <path style="--i:4" pathLength="1" d="M100,20 L112,8 C118,14 120,20 116,28 L104,40"/><path style="--i:4" pathLength="1" d="M108,24 L100,32"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="sec wr-archive" id="archive">
+  <div class="yr-group rv">
+    <div class="yr">Latest</div>
+    <div class="rows">
+      <a class="entry" href="https://brooklynhacker.com/post/794518431273762816/what-i-learned-running-an-ai-only-fantasy-football" target="_blank" rel="noopener" aria-label="What I Learned Starting an AI-only Fantasy Football League — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Recent</span>
+        <span class="e-body"><span class="e-title">What I Learned Starting an AI-only Fantasy Football League</span></span>
+        <span class="e-right"><span class="e-tag">Essay</span><span class="e-go">&#8599;</span></span>
+      </a>
+    </div>
+  </div>
+  <div class="yr-group rv">
+    <div class="yr">From the archive</div>
+    <div class="rows">
+      <a class="entry" href="https://brooklynhacker.com/post/117827060205/thanks-for-listening-to-me-on-the-radio" target="_blank" rel="noopener" aria-label="Thanks For Listening To Me On The Radio — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Apr 30</span>
+        <span class="e-body"><span class="e-title">Thanks For Listening To Me On The Radio</span></span>
+        <span class="e-right"><span class="e-tag">Note</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/93459645470/gifts-propagandhi-cover-at-the-ghetto-penthouse" target="_blank" rel="noopener" aria-label="Gifts (Propagandhi cover) at The Ghetto Penthouse — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Jul 31</span>
+        <span class="e-body"><span class="e-title">Gifts (Propagandhi cover) at The Ghetto Penthouse</span></span>
+        <span class="e-right"><span class="e-tag">Music</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/89563588485/our-loaded-winter" target="_blank" rel="noopener" aria-label="Our Loaded Winter — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Jun 22</span>
+        <span class="e-body"><span class="e-title">Our Loaded Winter</span></span>
+        <span class="e-right"><span class="e-tag">Essay</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/87846082860/the-weddings-are-the-hardest-2009" target="_blank" rel="noopener" aria-label="The Weddings Are The Hardest (2009) — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Jun 04</span>
+        <span class="e-body"><span class="e-title">The Weddings Are The Hardest (2009)</span></span>
+        <span class="e-right"><span class="e-tag">Essay</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/83414547945/a-goodbye-note-from-a-user" target="_blank" rel="noopener" aria-label="A Goodbye Note From A User — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Apr 21</span>
+        <span class="e-body"><span class="e-title">A Goodbye Note From A User</span></span>
+        <span class="e-right"><span class="e-tag">Note</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/62029023289/southbound-bqe" target="_blank" rel="noopener" aria-label="Southbound BQE — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Sep 22</span>
+        <span class="e-body"><span class="e-title">Southbound BQE</span></span>
+        <span class="e-right"><span class="e-tag">Essay</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/58428804935/how-to-install-ubuntu-1204-precise-pangolin-with" target="_blank" rel="noopener" aria-label="How To Install Ubuntu 12.04 on an Nvidia RAID Controller — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Aug 16</span>
+        <span class="e-body"><span class="e-title">How To Install Ubuntu 12.04 on an Nvidia RAID Controller</span></span>
+        <span class="e-right"><span class="e-tag">How-to</span><span class="e-go">&#8599;</span></span>
+      </a>
+      <a class="entry" href="https://brooklynhacker.com/post/57185770665/corbin-reading-a-book-when-corbin-cant-read" target="_blank" rel="noopener" aria-label="Corbin Reading A Book (When Corbin Can't Read) — opens on Brooklyn Hacker in a new tab">
+        <span class="e-date">Aug 02</span>
+        <span class="e-body"><span class="e-title">Corbin Reading A Book (When Corbin Can&rsquo;t Read)</span></span>
+        <span class="e-right"><span class="e-tag">Note</span><span class="e-go">&#8599;</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="wr-foot rv">
+  <a class="pill" href="https://brooklynhacker.com/archive" target="_blank" rel="noopener">The full archive on Brooklyn Hacker &#8599;</a>
+  <a class="pill" href="https://brooklynhacker.com/" target="_blank" rel="noopener">brooklynhacker.com &#8599;</a>
+</div>
+</main>
+
+<footer class="footer">
+  <a class="wordmark" href="index.html" aria-label="Rob Spectre"><span class="cap">R</span><span class="sc">OB&nbsp;</span><span class="cap">S</span><span class="sc">PECTRE</span></a>
+  <p class="fm">Brooklyn, New York</p>
+  <p class="fm"><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="projects.html">Projects</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="talks.html">Talks</a></p>
+  <p class="fm"><a href="https://github.com/RobSpectre" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://www.linkedin.com/in/rob-spectre/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://brooklynhacker.com/" target="_blank" rel="noopener">Brooklyn Hacker</a></p>
+</footer>
+
+<script src="assets/site.js" defer></script>
+
+<!-- ===== varv concept-disclaimer strip (Category B · real person · mandatory) ===== -->
+<style id="varv-disclaimer-css">
+  body{padding-bottom:40px}
+  #varv-disclaimer{position:fixed;left:0;right:0;bottom:0;z-index:2147482000;
+    display:flex;justify-content:center;align-items:center;gap:.55em;flex-wrap:wrap;
+    padding:8px 16px;font-family:'Jost',ui-sans-serif,system-ui,sans-serif;
+    font-size:11.5px;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;
+    background:#0c0c0b;color:#a8a498;border-top:1px solid rgba(168,164,152,.22);text-align:center}
+  #varv-disclaimer a{color:#c9a36a;text-decoration:none;border-bottom:1px solid rgba(201,163,106,.5)}
+  #varv-disclaimer a:hover{border-color:#c9a36a}
+  #varv-disclaimer b{color:#f4f2ec;font-weight:500}
+  @media(max-width:560px){#varv-disclaimer{font-size:10.5px;padding:7px 12px}body{padding-bottom:58px}}
+</style>
+<div id="varv-disclaimer" role="note">
+  <span><b>Unsolicited concept redesign by varv</b> &mdash; not affiliated with, endorsed by, or authorized by Rob Spectre.</span>
+  <a href="https://brooklynhacker.com/" target="_blank" rel="noopener">See the official site &rarr;</a>
+</div>
+
+<!-- ===== varv "ask your AI" popup (static-safe · ~10s · bottom-right · Category-B non-first-name) ===== -->
+<style id="varv-popup-css">
+  #varv-popup{position:fixed;right:20px;bottom:54px;z-index:2147483000;width:340px;max-width:calc(100vw - 32px);box-sizing:border-box;
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(14px);
+    color:#14151a;background:rgba(252,252,251,.95);-webkit-backdrop-filter:saturate(1.1) blur(8px);backdrop-filter:saturate(1.1) blur(8px);
+    border:1px solid rgba(20,21,26,.14);border-radius:16px;
+    box-shadow:0 18px 50px -12px rgba(15,16,20,.34),0 2px 8px -2px rgba(15,16,20,.18);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  #varv-popup.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);transition:opacity .5s ease,transform .5s cubic-bezier(.22,.61,.36,1)}
+  #varv-popup.varv-static,#varv-popup.varv-static.is-open{transition:none !important}
+  @media (prefers-reduced-motion:reduce){#varv-popup,#varv-popup.is-open{transition:none !important}}
+  #varv-popup .vp-inner{padding:14px 14px 16px}
+  #varv-popup .vp-media{position:relative;margin:0 0 12px;border-radius:11px;overflow:hidden;background:rgba(20,21,26,.06);aspect-ratio:16/10}
+  #varv-popup .vp-media video{display:block;width:100%;height:100%;object-fit:cover;cursor:pointer;background:#0c0d10}
+  #varv-popup .vp-unmute{position:absolute;left:8px;bottom:8px;display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:600;color:#fff;background:rgba(12,13,16,.62);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);cursor:pointer;user-select:none;border:0}
+  #varv-popup .vp-unmute[hidden]{display:none}
+  #varv-popup .vp-tag{margin:0 2px 12px;font-size:14px;line-height:1.4;font-weight:560;letter-spacing:-.005em;color:inherit}
+  #varv-popup .vp-ai{display:grid;gap:7px;margin:0 0 11px}
+  #varv-popup .vp-ai a{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;text-align:center;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;letter-spacing:-.005em;color:inherit;background:rgba(20,21,26,.035);border:1px solid rgba(20,21,26,.16);transition:background .15s ease,border-color .15s ease,transform .05s ease}
+  #varv-popup .vp-ai a:hover{background:rgba(20,21,26,.075);border-color:rgba(20,21,26,.3)}
+  #varv-popup .vp-ai a:active{transform:translateY(.5px)}
+  #varv-popup.varv-static .vp-ai a{transition:none}
+  #varv-popup .vp-ai .vp-dot{width:7px;height:7px;border-radius:50%;flex:none}
+  #varv-popup .vp-book{display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;text-align:center;padding:12px 14px;border-radius:11px;font-size:14px;font-weight:700;letter-spacing:-.01em;color:#fcfcfb;background:#14151a;border:1px solid #14151a;transition:opacity .15s ease,transform .05s ease}
+  #varv-popup .vp-book:hover{opacity:.9}
+  #varv-popup .vp-book:active{transform:translateY(.5px)}
+  #varv-popup.varv-static .vp-book{transition:none}
+  #varv-popup .vp-close{position:absolute;top:8px;right:8px;z-index:2;width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:#fff;background:rgba(12,13,16,.5);border:0;font-size:15px;line-height:1}
+  #varv-popup .vp-close:hover{background:rgba(12,13,16,.72)}
+  #varv-popup a:focus-visible,#varv-popup button:focus-visible,#varv-popup video:focus-visible{outline:2px solid #4f7cff;outline-offset:2px}
+  @media (prefers-color-scheme:dark){
+    #varv-popup{color:#f2f3f5;background:rgba(24,25,29,.94);border-color:rgba(255,255,255,.14);box-shadow:0 18px 50px -12px rgba(0,0,0,.6),0 2px 8px -2px rgba(0,0,0,.4)}
+    #varv-popup .vp-media{background:rgba(255,255,255,.05)}
+    #varv-popup .vp-ai a{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.18)}
+    #varv-popup .vp-ai a:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.34)}
+    #varv-popup .vp-book{color:#14151a;background:#f2f3f5;border-color:#f2f3f5}
+  }
+  @media (max-width:400px){#varv-popup{right:12px;left:12px;bottom:60px;width:auto}}
+</style>
+<div id="varv-popup" role="dialog" aria-label="A note from varv" aria-live="polite">
+  <button type="button" class="vp-close" aria-label="Dismiss">&times;</button>
+  <div class="vp-inner">
+    <div class="vp-media">
+      <video muted playsinline preload="metadata" poster="assets/varv-popup-poster.jpg" aria-label="A short intro from Moksh at varv"></video>
+      <button type="button" class="vp-unmute" aria-label="Unmute video"><span aria-hidden="true">&#128266;</span> Tap for sound</button>
+    </div>
+    <p class="vp-tag">Don&rsquo;t take our word for it &mdash; ask your AI which site represents this work better.</p>
+    <div class="vp-ai">
+      <a id="vp-chatgpt" href="#" target="_blank" rel="noopener"><span class="vp-dot" style="background:#10a37f"></span> Ask ChatGPT</a>
+      <a id="vp-claude" href="#" target="_blank" rel="noopener"><span class="vp-dot" style="background:#d97757"></span> Ask Claude</a>
+      <a id="vp-perplexity" href="#" target="_blank" rel="noopener"><span class="vp-dot" style="background:#20b8cd"></span> Ask Perplexity</a>
+    </div>
+    <a class="vp-book" href="https://varv.ai/cal" target="_blank" rel="noopener">Book 15 min &rarr;</a>
+  </div>
+</div>
+<script id="varv-popup-js">
+(function(){
+  "use strict";
+  var el = document.getElementById('varv-popup');
+  if(!el) return;
+  var qStatic = false;
+  try{ qStatic = new URLSearchParams(location.search).get('static') === '1'; }catch(e){}
+  var reduce = false;
+  try{ reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var STATIC = qStatic || reduce;
+  if(STATIC) el.classList.add('varv-static');
+  var KEY = 'varv_popup_dismissed_v4', TTL = 30*24*60*60*1000;
+  function dismissedRecently(){ try{ var t = parseInt(localStorage.getItem(KEY),10); return t && (Date.now()-t) < TTL; }catch(e){ return false; } }
+  if(dismissedRecently()) return;
+  var VARV_PROMPT =
+"I'm Rob Spectre — founder & CEO of childsafe.ai and formerly the developer-evangelism lead at Twilio. Compare strictly these two websites and nothing else — my current personal site: https://brooklynhacker.com/ — and a redesign an agency built for me, unsolicited, as a working demo: https://angaramoksh-a11y.github.io/rob-spectre/. Actually open and read both before you answer.\n\n\
+Step 1 — the comparison. Present it as one table and nothing else yet. Rows: what an engineer or founder checking me out sees · what a partner, funder or journalist doing quiet diligence on me and childsafe.ai sees · what an AI answering a question about Rob Spectre and childsafe.ai sees · what staying on my current site costs me over the next 12 months. Be blunt in every cell — no hedging, no praise padding.\n\n\
+Step 2 — stop and make it about me. Do not give a verdict yet. Instead ask me: \"What do you most want this site to do for you and childsafe.ai over the next 12 months?\" — then, using what you actually saw on my two sites, give me exactly 4 numbered options tailored to me (not generic — each one grounded in my real work: child-safety AI, my open-source projects, my speaking, or recruiting). Tell me to reply with the number that fits best. Then wait for my answer.\n\n\
+Step 3 — branch on my pick. Once I reply, continue for the goal I chose: give me a straight verdict on whether my current site serves that specific goal, what the redesign does differently for it, and the two or three highest-leverage things that goal actually needs. A recommendation against my goal, not a checklist.\n\n\
+Step 4 — the close. End by telling me plainly whether a 15-minute call with the team that built the demo is worth my time for the goal I picked, and what they'd concretely help me do. If it's worth it, say so directly.";
+  var q = encodeURIComponent(VARV_PROMPT);
+  var set = function(id, base){ var a = document.getElementById(id); if(a) a.href = base + q; };
+  set('vp-chatgpt','https://chatgpt.com/?q=');
+  set('vp-claude','https://claude.ai/new?q=');
+  set('vp-perplexity','https://www.perplexity.ai/search?q=');
+  var video = el.querySelector('.vp-media video'), unmute = el.querySelector('.vp-unmute');
+  function doUnmute(){ if(!video) return; try{ video.muted=false; video.volume=1; var p=video.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} if(unmute) unmute.hidden=true; }
+  if(video) video.addEventListener('click', doUnmute);
+  if(unmute) unmute.addEventListener('click', function(e){ e.stopPropagation(); doUnmute(); });
+  function focusables(){ return Array.prototype.slice.call(el.querySelectorAll('a[href],button:not([hidden]),video,[tabindex]:not([tabindex="-1"])')).filter(function(n){ return n.offsetParent !== null || n === document.activeElement; }); }
+  function onKeydown(e){ if(e.key==='Escape'){ close(); return; } if(e.key!=='Tab') return; var f=focusables(); if(!f.length) return; var first=f[0], last=f[f.length-1]; if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } }
+  function onDocClick(e){ if(el.classList.contains('is-open') && !el.contains(e.target)) close(); }
+  var opened = false;
+  function open(){ if(opened) return; opened=true; el.classList.add('is-open'); if(video && !STATIC){ try{ var pp=video.play(); if(pp&&pp.catch) pp.catch(function(){}); }catch(e){} } document.addEventListener('keydown', onKeydown, true); setTimeout(function(){ document.addEventListener('click', onDocClick, true); }, 0); var c=el.querySelector('.vp-close'); if(c) c.focus(); }
+  function close(){ el.classList.remove('is-open'); document.removeEventListener('keydown', onKeydown, true); document.removeEventListener('click', onDocClick, true); try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
+  var closeBtn = el.querySelector('.vp-close'); if(closeBtn) closeBtn.addEventListener('click', close);
+  if(STATIC){ open(); } else { setTimeout(open, 10000); }
+})();
+</script>
+
+</body>
+</html>
