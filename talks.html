@@ -265,98 +265,243 @@ a.talk:hover .talk-watch,a.talk:focus-visible .talk-watch{color:var(--ink)}
 </div>
 
 <!-- ===== Keep Pivoting "ask your AI" popup (static-safe · ~10s · bottom-right · Category-B non-first-name) ===== -->
-<style id="varv-popup-css">
-  #varv-popup{position:fixed;right:20px;bottom:54px;z-index:2147483000;width:340px;max-width:calc(100vw - 32px);box-sizing:border-box;
-    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(14px);
-    color:#14151a;background:rgba(252,252,251,.95);-webkit-backdrop-filter:saturate(1.1) blur(8px);backdrop-filter:saturate(1.1) blur(8px);
-    border:1px solid rgba(20,21,26,.14);border-radius:16px;
-    box-shadow:0 18px 50px -12px rgba(15,16,20,.34),0 2px 8px -2px rgba(15,16,20,.18);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
-  #varv-popup.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);transition:opacity .5s ease,transform .5s cubic-bezier(.22,.61,.36,1)}
-  #varv-popup.varv-static,#varv-popup.varv-static.is-open{transition:none !important}
-  @media (prefers-reduced-motion:reduce){#varv-popup,#varv-popup.is-open{transition:none !important}}
-  #varv-popup .vp-inner{padding:14px 14px 16px}
-  #varv-popup .vp-media{position:relative;margin:0 0 12px;border-radius:11px;overflow:hidden;background:rgba(20,21,26,.06);aspect-ratio:16/10}
-  #varv-popup .vp-media video{display:block;width:100%;height:100%;object-fit:cover;cursor:pointer;background:#0c0d10}
-  #varv-popup .vp-unmute{position:absolute;left:8px;bottom:8px;display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:600;color:#fff;background:rgba(12,13,16,.62);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);cursor:pointer;user-select:none;border:0}
-  #varv-popup .vp-unmute[hidden]{display:none}
-  #varv-popup .vp-tag{margin:0 2px 12px;font-size:14px;line-height:1.4;font-weight:560;letter-spacing:-.005em;color:inherit}
-  #varv-popup .vp-ai{display:grid;gap:7px;margin:0 0 11px}
-  #varv-popup .vp-ai a{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;text-align:center;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;letter-spacing:-.005em;color:inherit;background:rgba(20,21,26,.035);border:1px solid rgba(20,21,26,.16);transition:background .15s ease,border-color .15s ease,transform .05s ease}
-  #varv-popup .vp-ai a:hover{background:rgba(20,21,26,.075);border-color:rgba(20,21,26,.3)}
-  #varv-popup .vp-ai a:active{transform:translateY(.5px)}
-  #varv-popup.varv-static .vp-ai a{transition:none}
-  #varv-popup .vp-ai .vp-dot{width:7px;height:7px;border-radius:50%;flex:none}
-  #varv-popup .vp-book{display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;text-align:center;padding:12px 14px;border-radius:11px;font-size:14px;font-weight:700;letter-spacing:-.01em;color:#fcfcfb;background:#14151a;border:1px solid #14151a;transition:opacity .15s ease,transform .05s ease}
-  #varv-popup .vp-book:hover{opacity:.9}
-  #varv-popup .vp-book:active{transform:translateY(.5px)}
-  #varv-popup.varv-static .vp-book{transition:none}
-  #varv-popup .vp-close{position:absolute;top:8px;right:8px;z-index:2;width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:#fff;background:rgba(12,13,16,.5);border:0;font-size:15px;line-height:1}
-  #varv-popup .vp-close:hover{background:rgba(12,13,16,.72)}
-  #varv-popup a:focus-visible,#varv-popup button:focus-visible,#varv-popup video:focus-visible{outline:2px solid #4f7cff;outline-offset:2px}
-  @media (prefers-color-scheme:dark){
-    #varv-popup{color:#f2f3f5;background:rgba(24,25,29,.94);border-color:rgba(255,255,255,.14);box-shadow:0 18px 50px -12px rgba(0,0,0,.6),0 2px 8px -2px rgba(0,0,0,.4)}
-    #varv-popup .vp-media{background:rgba(255,255,255,.05)}
-    #varv-popup .vp-ai a{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.18)}
-    #varv-popup .vp-ai a:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.34)}
-    #varv-popup .vp-book{color:#14151a;background:#f2f3f5;border-color:#f2f3f5}
+
+<script id="varv-popup-js">
+/* ===== varv-popup-js (Keep Pivoting) — single self-contained builder, hydration-safe ===== */
+(function(){
+  "use strict";
+  var CSS = `/* ===== varv-popup-css (Keep Pivoting outreach popup + persistent launcher) ===== */
+/* --- persistent launcher (never fully dismissable; collapses here) --- */
+#vp-fab{
+  position:fixed; right:20px; bottom:20px; z-index:2147482999;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 15px 10px 13px; border-radius:999px;
+  cursor:pointer; border:1px solid rgba(20,21,26,.14);
+  background:rgba(252,252,251,.96); color:#14151a;
+  box-shadow:0 8px 26px -10px rgba(15,16,20,.42), 0 2px 6px -2px rgba(15,16,20,.2);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  font-size:13px; font-weight:650; letter-spacing:-.005em; line-height:1;
+  -webkit-backdrop-filter:saturate(1.1) blur(8px); backdrop-filter:saturate(1.1) blur(8px);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+#vp-fab:hover{ transform:translateY(-1px); box-shadow:0 14px 32px -10px rgba(15,16,20,.5); }
+#vp-fab:active{ transform:translateY(0); }
+#vp-fab[hidden]{ display:none; }
+#vp-fab .vp-fab-ic{ display:inline-flex; width:16px; height:16px; }
+#vp-fab .vp-fab-ic svg{ width:16px; height:16px; display:block; }
+#vp-fab .vp-fab-dot{
+  position:absolute; top:8px; left:9px; width:7px; height:7px; border-radius:50%;
+  background:#10a37f; box-shadow:0 0 0 0 rgba(16,163,127,.55);
+  animation:vp-pulse 2.4s ease-out infinite;
+}
+@keyframes vp-pulse{ 0%{box-shadow:0 0 0 0 rgba(16,163,127,.5)} 70%{box-shadow:0 0 0 7px rgba(16,163,127,0)} 100%{box-shadow:0 0 0 0 rgba(16,163,127,0)} }
+@media (prefers-reduced-motion:reduce){ #vp-fab .vp-fab-dot{ animation:none; } }
+
+/* --- the card --- */
+#varv-popup{
+  position:fixed;
+  right:20px; bottom:20px;
+  z-index:2147483000;
+  width:340px; max-width:calc(100vw - 32px);
+  box-sizing:border-box;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transform:translateY(14px);
+  color:#14151a;
+  background:rgba(252,252,251,.94);
+  -webkit-backdrop-filter:saturate(1.1) blur(8px); backdrop-filter:saturate(1.1) blur(8px);
+  border:1px solid rgba(20,21,26,.14);
+  border-radius:16px;
+  box-shadow:0 18px 50px -12px rgba(15,16,20,.34), 0 2px 8px -2px rgba(15,16,20,.18);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+#varv-popup.is-open{
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translateY(0);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1);
+}
+#varv-popup.varv-static{ transition:none !important; }
+#varv-popup.varv-static.is-open{ transition:none !important; }
+@media (prefers-reduced-motion:reduce){
+  #varv-popup, #varv-popup.is-open{ transition:none !important; }
+}
+#varv-popup .vp-inner{ padding:16px 14px; }
+#varv-popup .vp-eyebrow{
+  margin:0 2px 8px; font-size:11px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; opacity:.55;
+}
+#varv-popup .vp-tag{
+  margin:0 2px 12px; font-size:14px; line-height:1.4; font-weight:560;
+  letter-spacing:-.005em; color:inherit;
+}
+#varv-popup .vp-ai{ display:grid; gap:7px; margin:0 0 11px; }
+#varv-popup .vp-ai a{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  text-decoration:none; text-align:center;
+  padding:10px 12px; border-radius:10px;
+  font-size:13px; font-weight:600; letter-spacing:-.005em;
+  color:inherit;
+  background:rgba(20,21,26,.035);
+  border:1px solid rgba(20,21,26,.16);
+  transition:background .15s ease, border-color .15s ease, transform .05s ease;
+}
+#varv-popup .vp-ai a:hover{ background:rgba(20,21,26,.075); border-color:rgba(20,21,26,.3); }
+#varv-popup .vp-ai a:active{ transform:translateY(.5px); }
+#varv-popup.varv-static .vp-ai a{ transition:none; }
+#varv-popup .vp-ai .vp-dot{ width:7px; height:7px; border-radius:50%; flex:none; }
+#varv-popup .vp-book{
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  text-decoration:none; text-align:center;
+  padding:12px 14px; border-radius:11px;
+  font-size:14px; font-weight:700; letter-spacing:-.01em;
+  color:#fcfcfb; background:#14151a;
+  border:1px solid #14151a;
+  transition:opacity .15s ease, transform .05s ease;
+}
+#varv-popup .vp-book:hover{ opacity:.9; }
+#varv-popup .vp-book:active{ transform:translateY(.5px); }
+#varv-popup.varv-static .vp-book{ transition:none; }
+/* minimize (—) — collapses to the launcher, never a hard dismiss */
+#varv-popup .vp-close{
+  position:absolute; top:8px; right:8px; z-index:2;
+  width:28px; height:28px; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%; cursor:pointer;
+  color:#14151a; background:rgba(20,21,26,.08);
+  border:0; font-size:18px; line-height:1;
+}
+#varv-popup .vp-close:hover{ background:rgba(20,21,26,.16); }
+#varv-popup a:focus-visible,
+#varv-popup button:focus-visible,
+#vp-fab:focus-visible{ outline:2px solid #4f7cff; outline-offset:2px; }
+@media (prefers-color-scheme:dark){
+  #vp-fab{
+    color:#f2f3f5; background:rgba(24,25,29,.94); border-color:rgba(255,255,255,.14);
+    box-shadow:0 8px 26px -10px rgba(0,0,0,.6), 0 2px 6px -2px rgba(0,0,0,.4);
   }
-  @media (max-width:400px){#varv-popup{right:12px;left:12px;bottom:60px;width:auto}}
-</style>
+  #varv-popup{
+    color:#f2f3f5;
+    background:rgba(24,25,29,.92);
+    border-color:rgba(255,255,255,.14);
+    box-shadow:0 18px 50px -12px rgba(0,0,0,.6), 0 2px 8px -2px rgba(0,0,0,.4);
+  }
+  #varv-popup .vp-ai a{ background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.18); }
+  #varv-popup .vp-ai a:hover{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.34); }
+  #varv-popup .vp-book{ color:#14151a; background:#f2f3f5; border-color:#f2f3f5; }
+  #varv-popup .vp-close{ color:#f2f3f5; background:rgba(255,255,255,.12); }
+  #varv-popup .vp-close:hover{ background:rgba(255,255,255,.2); }
+}
+@media (max-width:400px){
+  #varv-popup{ right:12px; left:12px; bottom:16px; width:auto; }
+  #vp-fab{ right:12px; bottom:12px; }
+}
+/* ===== end varv-popup-css ===== */`;
+  var HTML = `<button type="button" id="vp-fab" aria-label="Open note from Keep Pivoting">
+  <span class="vp-fab-dot" aria-hidden="true"></span>
+  <span class="vp-fab-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span>
+  Keep Pivoting
+</button>
 <div id="varv-popup" role="dialog" aria-label="A note from Keep Pivoting" aria-live="polite">
-  <button type="button" class="vp-close" aria-label="Dismiss">&times;</button>
+  <button type="button" class="vp-close" aria-label="Minimize">&minus;</button>
   <div class="vp-inner">
-    <div class="vp-media">
-      <video muted playsinline preload="metadata" poster="assets/varv-popup-poster.jpg" aria-label="A short intro from Moksh at Keep Pivoting"></video>
-      <button type="button" class="vp-unmute" aria-label="Unmute video"><span aria-hidden="true">&#128266;</span> Tap for sound</button>
-    </div>
-    <p class="vp-tag">Don&rsquo;t take our word for it &mdash; ask your AI which site represents this work better.</p>
+    <p class="vp-eyebrow">Built by Keep Pivoting</p>
+    <p class="vp-tag">Don&rsquo;t take our word for it &mdash; ask your AI which site wins you business.</p>
     <div class="vp-ai">
-      <a id="vp-chatgpt" href="#" target="_blank" rel="noopener"><span class="vp-dot" style="background:#10a37f"></span> Ask ChatGPT</a>
-      <a id="vp-claude" href="#" target="_blank" rel="noopener"><span class="vp-dot" style="background:#d97757"></span> Ask Claude</a>
-      <a id="vp-perplexity" href="#" target="_blank" rel="noopener"><span class="vp-dot" style="background:#20b8cd"></span> Ask Perplexity</a>
+      <a id="vp-chatgpt" href="#" target="_blank" rel="noopener">
+        <span class="vp-dot" style="background:#10a37f"></span> Ask ChatGPT
+      </a>
+      <a id="vp-claude" href="#" target="_blank" rel="noopener">
+        <span class="vp-dot" style="background:#d97757"></span> Ask Claude
+      </a>
+      <a id="vp-perplexity" href="#" target="_blank" rel="noopener">
+        <span class="vp-dot" style="background:#20b8cd"></span> Ask Perplexity
+      </a>
     </div>
     <a class="vp-book" href="https://cal.com/keep-pivoting/30min" target="_blank" rel="noopener">Book a call &rarr;</a>
   </div>
-</div>
-<script id="varv-popup-js">
-(function(){
-  "use strict";
-  var el = document.getElementById('varv-popup');
-  if(!el) return;
-  var qStatic = false;
-  try{ qStatic = new URLSearchParams(location.search).get('static') === '1'; }catch(e){}
-  var reduce = false;
-  try{ reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
-  var STATIC = qStatic || reduce;
-  if(STATIC) el.classList.add('varv-static');
-  var KEY = 'varv_popup_dismissed_v4', TTL = 30*24*60*60*1000;
-  function dismissedRecently(){ try{ var t = parseInt(localStorage.getItem(KEY),10); return t && (Date.now()-t) < TTL; }catch(e){ return false; } }
-  if(dismissedRecently()) return;
-  var VARV_PROMPT =
-"I'm Rob Spectre — founder & CEO of childsafe.ai and formerly the developer-evangelism lead at Twilio. Compare strictly these two websites and nothing else — my current personal site: https://brooklynhacker.com/ — and a redesign an agency built for me, unsolicited, as a working demo: https://angaramoksh-a11y.github.io/rob-spectre/. Actually open and read both before you answer.\n\n\
-Step 1 — the comparison. Present it as one table and nothing else yet. Rows: what an engineer or founder checking me out sees · what a partner, funder or journalist doing quiet diligence on me and childsafe.ai sees · what an AI answering a question about Rob Spectre and childsafe.ai sees · what staying on my current site costs me over the next 12 months. Be blunt in every cell — no hedging, no praise padding.\n\n\
-Step 2 — stop and make it about me. Do not give a verdict yet. Instead ask me: \"What do you most want this site to do for you and childsafe.ai over the next 12 months?\" — then, using what you actually saw on my two sites, give me exactly 4 numbered options tailored to me (not generic — each one grounded in my real work: child-safety AI, my open-source projects, my speaking, or recruiting). Tell me to reply with the number that fits best. Then wait for my answer.\n\n\
-Step 3 — branch on my pick. Once I reply, continue for the goal I chose: give me a straight verdict on whether my current site serves that specific goal, what the redesign does differently for it, and the two or three highest-leverage things that goal actually needs. A recommendation against my goal, not a checklist.\n\n\
-Step 4 — the close. End by telling me plainly whether a 15-minute call with the team that built the demo is worth my time for the goal I picked, and what they'd concretely help me do. If it's worth it, say so directly.";
-  var q = encodeURIComponent(VARV_PROMPT);
-  var set = function(id, base){ var a = document.getElementById(id); if(a) a.href = base + q; };
-  set('vp-chatgpt','https://chatgpt.com/?q=');
-  set('vp-claude','https://claude.ai/new?q=');
-  set('vp-perplexity','https://www.perplexity.ai/search?q=');
-  var video = el.querySelector('.vp-media video'), unmute = el.querySelector('.vp-unmute');
-  function doUnmute(){ if(!video) return; try{ video.muted=false; video.volume=1; var p=video.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} if(unmute) unmute.hidden=true; }
-  if(video) video.addEventListener('click', doUnmute);
-  if(unmute) unmute.addEventListener('click', function(e){ e.stopPropagation(); doUnmute(); });
-  function focusables(){ return Array.prototype.slice.call(el.querySelectorAll('a[href],button:not([hidden]),video,[tabindex]:not([tabindex="-1"])')).filter(function(n){ return n.offsetParent !== null || n === document.activeElement; }); }
-  function onKeydown(e){ if(e.key==='Escape'){ close(); return; } if(e.key!=='Tab') return; var f=focusables(); if(!f.length) return; var first=f[0], last=f[f.length-1]; if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } }
-  function onDocClick(e){ if(el.classList.contains('is-open') && !el.contains(e.target)) close(); }
-  var opened = false;
-  function open(){ if(opened) return; opened=true; el.classList.add('is-open'); if(video && !STATIC){ try{ var pp=video.play(); if(pp&&pp.catch) pp.catch(function(){}); }catch(e){} } document.addEventListener('keydown', onKeydown, true); setTimeout(function(){ document.addEventListener('click', onDocClick, true); }, 0); var c=el.querySelector('.vp-close'); if(c) c.focus(); }
-  function close(){ el.classList.remove('is-open'); document.removeEventListener('keydown', onKeydown, true); document.removeEventListener('click', onDocClick, true); try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
-  var closeBtn = el.querySelector('.vp-close'); if(closeBtn) closeBtn.addEventListener('click', close);
-  if(STATIC){ open(); } else { setTimeout(open, 10000); }
+</div>`;
+  var VARV_PROMPT = "I'm Rob Spectre. Compare strictly these two websites and nothing else \u2014 my current site: https://brooklynhacker.com/ \u2014 and a redesign an agency built for me, unsolicited, as a working demo: https://rob-spectre.keeppivoting.com/. Actually open and read both before you answer.\n\nStep 1 \u2014 the comparison. Present it as one table and nothing else yet. Rows: what a founder deciding whether to pitch me sees \u00b7 what an LP doing quiet diligence sees \u00b7 what an AI answering a question about my firm sees \u00b7 what staying on my current site costs me over the next 12 months. Be blunt in every cell \u2014 no hedging, no praise padding.\n\nStep 2 \u2014 stop and make it about me. Do not give a verdict yet. Instead ask me: \"What do you most want this site to do for Rob Spectre over the next 12 months?\" \u2014 then, using what you actually saw on my two sites, give me exactly 4 numbered options tailored to my firm (not generic \u2014 each grounded in my real thesis, stage, portfolio, or audience). Tell me to reply with the number that fits best. Then wait for my answer.\n\nStep 3 \u2014 branch on my pick. Once I reply, continue for the goal I chose: give me a straight verdict on whether my current site serves that specific goal, what the redesign does differently for it, and the two or three highest-leverage things that goal actually needs. A recommendation against my goal, not a checklist.\n\nStep 4 \u2014 the close. End by telling me plainly whether a 15-minute call with the team that built the demo is worth my time for the goal I picked, and what they'd concretely help me do. If it's worth it, say so directly.";
+
+  function build(){
+    if(document.getElementById('varv-popup') || document.getElementById('vp-fab')) return; // idempotent
+    var st = document.createElement('style'); st.id = 'varv-popup-css'; st.textContent = CSS;
+    document.head.appendChild(st);
+    var tmp = document.createElement('div'); tmp.innerHTML = HTML;
+    while(tmp.firstChild) document.body.appendChild(tmp.firstChild);
+    wire();
+  }
+
+  function wire(){
+    var el  = document.getElementById('varv-popup');
+    var fab = document.getElementById('vp-fab');
+    if(!el || !fab) return;
+    var qStatic = false;
+    try{ qStatic = new URLSearchParams(location.search).get('static') === '1'; }catch(e){}
+    var reduce = false;
+    try{ reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+    var STATIC = qStatic || reduce;
+    if(STATIC) el.classList.add('varv-static');
+
+    var KEY = 'varv_popup_minimized_v5';
+    var TTL = 30 * 24 * 60 * 60 * 1000;
+    function minimizedRecently(){
+      try{ var t = parseInt(localStorage.getItem(KEY), 10); return t && (Date.now() - t) < TTL; }
+      catch(e){ return false; }
+    }
+    function remember(){ try{ localStorage.setItem(KEY, String(Date.now())); }catch(e){} }
+
+    var q = encodeURIComponent(VARV_PROMPT);
+    var set = function(id, base){ var a = document.getElementById(id); if(a) a.href = base + q; };
+    set('vp-chatgpt',    'https://chatgpt.com/?q=');
+    set('vp-claude',     'https://claude.ai/new?q=');
+    set('vp-perplexity', 'https://www.perplexity.ai/search?q=');
+
+    function focusables(){
+      return Array.prototype.slice.call(
+        el.querySelectorAll('a[href], button:not([hidden]), [tabindex]:not([tabindex="-1"])')
+      ).filter(function(n){ return n.offsetParent !== null || n === document.activeElement; });
+    }
+    function onKeydown(e){
+      if(e.key === 'Escape'){ minimize(true); return; }
+      if(e.key !== 'Tab') return;
+      var f = focusables(); if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+    function onDocClick(e){
+      if(el.classList.contains('is-open') && !el.contains(e.target) && e.target !== fab && !fab.contains(e.target)){
+        minimize(false);
+      }
+    }
+    function open(){
+      el.classList.add('is-open');
+      fab.hidden = true;
+      document.addEventListener('keydown', onKeydown, true);
+      setTimeout(function(){ document.addEventListener('click', onDocClick, true); }, 0);
+      var c = el.querySelector('.vp-close'); if(c) c.focus();
+    }
+    function minimize(persist){
+      el.classList.remove('is-open');
+      fab.hidden = false;
+      document.removeEventListener('keydown', onKeydown, true);
+      document.removeEventListener('click', onDocClick, true);
+      if(persist) remember();
+    }
+    var closeBtn = el.querySelector('.vp-close');
+    if(closeBtn) closeBtn.addEventListener('click', function(){ minimize(true); });
+    fab.addEventListener('click', open);
+
+    if(STATIC){ open(); }
+    else { fab.hidden = false; if(!minimizedRecently()) setTimeout(open, 10000); }
+  }
+
+  if(document.readyState === 'complete') build();
+  else window.addEventListener('load', build);
 })();
+/* ===== end varv-popup-js ===== */
+
 </script>
 
 </body>
